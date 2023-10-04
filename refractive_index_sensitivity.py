@@ -119,7 +119,7 @@ CSV.print_arrays_to_CSV(CURRENT_PATH+'\\Formatted CSV\\Measured_LSPR_peak_vs_con
                         'LSPR peak wavelength / nm', LSPR_peak)
 
 CSV.print_arrays_to_CSV(CURRENT_PATH+'\\Formatted CSV\\LSPR-peak_vs_ethylene-glycol-concentration_fit.csv', 
-                        'Measured LSPR peak wavelength \ nm', LSPR_peak,
+                        'Measured LSPR peak wavelength \ nm', LSPR_peaks,
                         'Given concentration ethylene glycol in water (percent)', concentrations, 
                         'Fitted LSPR peak wavelength \ nm', x_plot, 
                         'Fitted concentration ethylene glycol in water (percent)', y_plot, 
