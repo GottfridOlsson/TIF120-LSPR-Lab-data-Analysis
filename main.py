@@ -113,8 +113,8 @@ for i, sample in enumerate(["A", "B", "C", "D", "E"]):
 
 x_labels = ["", "", "Wavelength / nm"]
 y_labels = ["", "Normalized extinction", ""]
-x_lims = [(None, None), (None, None), (280,1120)]
-y_lims = [(-0.05, 1.05), (-0.05, 1.05), (-0.05, 1.05)]
+x_lims   = [(None, None), (None, None), (280,1120)]
+y_lims   = [(-0.05, 1.05), (-0.05, 1.05), (-0.05, 1.05)]
 
 
 for i, ax in enumerate(axs):
