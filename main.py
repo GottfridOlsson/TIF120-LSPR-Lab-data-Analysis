@@ -5,6 +5,8 @@ from mie_gans_spectra import get_mie_gans_crossection
 from universal_model_spectra import get_disk_crossection
 from dielectric_functions import *
 from scipy.optimize import minimize
+import plot_functions as f
+import os
 
 # Parameters
 nominal_density = 7.125 # particles per um2 from lab pm picture
@@ -84,41 +86,49 @@ for sample, particle in fitted_data.items():
     particle["ext"] = ext
 
 
+
+
+
+
+
+
 # --- Plotting --- #
-fig = plt.figure()
-ax = fig.add_subplot(3,1,1)
+f.set_LaTeX_and_CMU(True)
+f.set_font_size(axis=11, tick=9, legend=7)
+fig, axs = plt.subplots(nrows=3, ncols=1, figsize=(16/2.54, 14/2.54), sharex=True, sharey=False)
+
 for i, sample in enumerate(["A", "B", "C", "D", "E"]):
     wl_measured  = spectra[sample][:,0]
     ext_measured = spectra[sample][:,1]
-    ax.plot(wl_measured, ext_measured/np.max(ext_measured), label=f"Sample {sample}")
+    axs[0].plot(wl_measured, ext_measured/np.max(ext_measured), label=f"Sample {sample}")
     
-    ax.set_ylim(-0.1, 1.1)
-    ax.legend()
-
-ax = fig.add_subplot(3,1,2)
-for i, sample in enumerate(["A", "B", "C", "D", "E"]):
     wl_nominal = nominal_data[sample]["wl"]
     ext_nominal = nominal_data[sample]["ext"]
-    ax.plot(wl_nominal, ext_nominal/np.max(ext_nominal), label=f'{nominal_data[sample]["metal"]}, $D = {nominal_data[sample]["diameter"]:.0f}$ nm, $h = {nominal_data[sample]["height"]:.0f}$ nm')
+    axs[1].plot(wl_nominal, ext_nominal/np.max(ext_nominal), label=f'{nominal_data[sample]["metal"]}, $D={nominal_data[sample]["diameter"]:3.0f}$\,nm, $h={nominal_data[sample]["height"]:2.0f}$\,nm')
     
-    ax.set_ylim(-0.1, 1.1)
-    ax.legend()
-    ax.set_ylabel("Extinction (normalized)")
-    
-
-ax = fig.add_subplot(3,1,3)
-for i, sample in enumerate(["A", "B", "C", "D", "E"]):
     wl_fitted = fitted_data[sample]["wl"]
     ext_fitted = fitted_data[sample]["ext"]
-    ax.plot(wl_fitted, ext_fitted/np.max(ext_fitted), label=f'{fitted_data[sample]["metal"]}, $D = {fitted_data[sample]["diameter"]:.0f}$ nm, $h = {fitted_data[sample]["height"]:.0f}$ nm')
-
-    ax.legend()
-    ax.set_ylim(-0.1, 1.1)
-    ax.set_xlabel("Wavelength / nm")
+    axs[2].plot(wl_fitted, ext_fitted/np.max(ext_fitted), label=f'{fitted_data[sample]["metal"]}, $D={fitted_data[sample]["diameter"]:3.0f}$\,nm, $h={fitted_data[sample]["height"]:2.0f}$\,nm')
 
 
+x_labels = ["", "", "Wavelength / nm"]
+y_labels = ["", "Normalized extinction", ""]
+x_lims = [(None, None), (None, None), (280,1120)]
+y_lims = [(-0.05, 1.05), (-0.05, 1.05), (-0.05, 1.05)]
 
 
+for i, ax in enumerate(axs):
+    #ax.set_yticks([])
+    #f.set_axis_scale(   axs, xScale_string='linear', yScale_string='linear')
+    f.set_axis_labels(  ax, x_label=x_labels[i], y_label=y_labels[i])
+    #f.set_axis_invert(  ax, x_invert=False, y_invert=False)
+    f.set_axis_limits(  ax, x_lims[i][0], x_lims[i][1], y_lims[i][0], y_lims[i][1])
+    f.set_grid(         ax, grid_major_on=True, grid_major_linewidth=0.7, grid_minor_on=False, grid_minor_linewidth=0.3) # set_grid must be after set_axis_scale for some reason (at least with 'log')
+    f.set_legend(       ax, legend_on=True, alpha=1.0, location='best')
+    ax.yaxis.set_ticklabels([]) # remove labels but keep tick marks
 
-fig.tight_layout()
+
+f.align_labels(fig)
+f.set_layout_tight(fig)
+f.export_figure_as_pdf(os.path.abspath(os.path.dirname(__file__)) + "\\Figure\\TIF120_LSPR_measured_theoretical_spectra.pdf")
 plt.show()
