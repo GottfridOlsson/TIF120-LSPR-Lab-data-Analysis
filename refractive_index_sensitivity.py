@@ -28,8 +28,8 @@ if False:
 
 
 # Pick out LSPR peaks for different concentrations of glycol #
-concentrations = np.array([5, 10, 20, 30, 50]) # percent glycol in water (zero means only water, values from lab)
-LSPR_peak_time_ranges = [(240,300), (400,450), (550,600), (700,760), (810,870), (1060,1120)] # corresponding times for concentrations (values from plot)
+concentrations = np.array([0, 5, 10, 20, 30, 50]) # percent glycol in water (zero means only water, values from lab)
+LSPR_peak_time_ranges = [(60, 120), (240,300), (400,450), (550,600), (700,760), (810,870), (1060,1120)] # corresponding times for concentrations (values from plot)
 
 LSPR_peak_avg, time_avg = [], []
 for start, end in LSPR_peak_time_ranges:
