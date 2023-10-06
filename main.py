@@ -118,7 +118,6 @@ y_lims = [(-0.05, 1.05), (-0.05, 1.05), (-0.05, 1.05)]
 
 
 for i, ax in enumerate(axs):
-    #ax.set_yticks([])
     #f.set_axis_scale(   axs, xScale_string='linear', yScale_string='linear')
     f.set_axis_labels(  ax, x_label=x_labels[i], y_label=y_labels[i])
     #f.set_axis_invert(  ax, x_invert=False, y_invert=False)
