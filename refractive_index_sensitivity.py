@@ -85,7 +85,7 @@ fit_coeffs_ethyleneGlycol = np.polyfit(C_ethyleneGlycol, n_ethyleneGlycol, deg=1
 concentration_linspace = np.linspace(0, 50, 1000)
 lin_fit_ethyleneGlycol = fit_coeffs_ethyleneGlycol[0]*concentration_linspace + fit_coeffs_ethyleneGlycol[1]
 refractive_indexes_ethyleneGlycol = fit_coeffs_ethyleneGlycol[0]*concentrations + fit_coeffs_ethyleneGlycol[1]
-
+print(fit_coeffs_ethyleneGlycol)
 if False:
     plt.plot(concentration_linspace, lin_fit_ethyleneGlycol, linestyle='--',label='fit')
     plt.plot(C_ethyleneGlycol, n_ethyleneGlycol, linestyle='', marker='.', label='old experiment (source)')
