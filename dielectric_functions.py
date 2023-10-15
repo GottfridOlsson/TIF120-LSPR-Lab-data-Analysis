@@ -25,9 +25,9 @@ def eps_SiO2(wavelength):
     # Source: https://refractiveindex.info/
     # Wavelength given in nanometers
     data = np.genfromtxt("refractive_indices/SiO2.csv", skip_header=1)
-    n_SiO2    = np.interp(wavelength, data[:,0]*1000, data[:,1])
-    eps1 = n_SiO2**2
-    eps2 = 0 * np.ones_like(wavelength)
+    n_SiO2 = np.interp(wavelength, data[:,0]*1000, data[:,1])
+    eps1   = n_SiO2**2
+    eps2   = 0 * np.ones_like(wavelength)
 
     return eps1, eps2
 
