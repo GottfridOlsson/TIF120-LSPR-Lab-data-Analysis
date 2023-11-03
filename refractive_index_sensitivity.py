@@ -97,6 +97,7 @@ if False:
 fit_coeffs_n_vs_lambda, covariance_n_vs_lambda = np.polyfit(refractive_indexes_ethyleneGlycol, LSPR_peaks, deg=1, cov=True)
 sensitivity = fit_coeffs_n_vs_lambda[0] # this is lambda per refractive index
 twoSigma_sensitivity = 2*np.sqrt(covariance_n_vs_lambda[0,0])
+print(fit_coeffs_n_vs_lambda)
 
 
 n_linspace = np.linspace(1.3,1.4,1000)
